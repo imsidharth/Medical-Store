@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Medicine list</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url('your-background-image.jpg'); /* Replace 'your-background-image.jpg' with your actual background image path */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            color: #333; /* Text color */
+        }
+
+        .navbar {
+            background-color: #555; /* Navbar background color */
+        }
+
+        h1 {
+            color: #fff; /* Heading color */
+        }
+
+        .btn {
+            background-color: #888; /* Button background color */
+            color: #fff; /* Button text color */
+        }
+
+        .table {
+            background-color: rgba(255, 255, 255, 0.8); /* Table background color with opacity */
+            color: #333; /* Table text color */
+        }
+
+        .form-control-md {
+            background-color: rgba(255, 255, 255, 0.8); /* Search input background color with opacity */
+            color: #333; /* Search input text color */
+        }
+
+        .btn-search {
+            background-color: #888; /* Search button background color */
+            color: #fff; /* Search button text color */
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MED LIST</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="/home" aria-current="page">Home</a></li>
+
+                    <li class="nav-item"><a class="nav-link" th:href="@{/home/list}">MedList</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Medicines</h1>
+        <a th:href="@{add}" class="btn btn-danger">Add</a>
+        <a th:href="@{delete}" class="btn btn-danger">Delete</a>
+        <a th:href="@{edit}" class="btn btn-danger">Edit</a>
+
+        <div class="search mt-5">
+            <form th:action="@{search}" method="GET">
+                <input type="search" name="name" placeholder="Search..." class="form-control-md">
+                <button type="submit" class="btn btn-danger btn-search btn-sm">Search</button>
+            </form>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each="meds : ${meds}">
+                    <tr>
+                        <td th:text="${meds.name}"></td>
+                        <td th:text="${meds.amount}"></td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

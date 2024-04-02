@@ -1,0 +1,10 @@
+<body>
+   <form th:action="@{delete}" method="post">
+      <div>
+         <label>Name : <input type="text" name="name" th:value="${name}" /></label>
+      </div>
+      <div>
+         <input type="submit" value="Delete" />
+      </div>
+   </form>
+</body>
